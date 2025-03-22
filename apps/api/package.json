@@ -1,15 +1,16 @@
 {
   "name": "api",
-  "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@repo/db" : "*",
-    "hono": "^4.7.4"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250214.0",
-    "wrangler": "^3.109.2"
+    "@repo/db": "*",
+    "express": "^4.21.2",
+    "face-api.js": "^0.22.2"
   }
 }
