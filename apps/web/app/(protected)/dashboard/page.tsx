@@ -11,5 +11,5 @@ export default async function Dashboard() {
     redirect("/onboarding");
   }
 
-  return <>Dashboard</>;
+  return <>BOlte Dashboard</>;
 }
