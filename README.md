@@ -102,6 +102,33 @@ also add the exports in package.json file of newly created package.
 
 For more info how to create a package please refer the `packages/db` package of the project.
 
+
+### Docker db setup
+
+```
+# Step 1: Pull the official PostgreSQL image
+docker pull postgres
+
+# Step 2: Create a container with PostgreSQL
+docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+
+# Step 3: Verify that the container is running
+docker ps
+
+# Step 4: Connect to PostgreSQL using psql client inside the container
+docker exec -it my-postgres psql -U postgres
+
+# Step 5 (Optional): Create a volume to persist data
+docker volume create postgres_data
+
+# Step 6 (Optional): Run PostgreSQL with a persistent volume
+docker run --name my-postgres-persistent -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -v postgres_data:/var/lib/postgresql/data -d postgres
+
+```
+then set the `DATABASE_URL` in the `.env.local` file of the `apps/web` app and also change the db configuration in `db` package to `DATABASE_URL` .
+```
+DATAVASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres
+```
 ### Remote Caching
 
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
