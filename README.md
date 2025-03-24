@@ -127,8 +127,17 @@ docker run --name my-postgres-persistent -e POSTGRES_PASSWORD=mysecretpassword -
 ```
 then set the `DATABASE_URL` in the `.env.local` file of the `apps/web` app and also change the db configuration in `db` package to `DATABASE_URL` .
 ```
-DATAVASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres
+DATABASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres
 ```
+
+then run 
+
+```
+docker exec -it <container_name_or_id> psql -U <username> -d <database_name> -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+```
+
+
 ### Remote Caching
 
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
